@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- Load the properties file sport.properties-->
+    <context:property-placeholder location="classpath:sport.properties"/>
+
+	
+    <!-- Define your beans here -->
+    <bean id="myFortuneService"
+ 		class="com.springLessons.springdemo.HappyFortuneService">	 		
+ 	</bean>
+ 	
+ 	<!-- Constructor Injection -->
+    <bean id="myCoach"
+ 		class="com.springLessons.springdemo.TrackCoach">	
+ 		<constructor-arg ref="myFortuneService"/>  		
+ 	</bean>    
+ 	
+ 	<!-- Setter Injection -->
+ 	 <bean id="myCricketCoach"
+ 		class="com.springLessons.springdemo.CricketCoach">	
+ 		<!-- For Dependency Injection using setter method -->
+ 		<property name="fortuneService" ref="myFortuneService"></property>	
+ 		
+ 		<!-- For literal Injection hardcoded -->
+  		<!--<property name="emailAddress" value="kajal@gmail.com"></property>	
+ 		<property name="team" value="TCS Noida"></property>	 -->
+ 		
+ 		<!-- 	For lieral injection - retrieving values from Properties file -->
+ 		<property name="emailAddress" value= "${foo.emailAddress}"></property>
+ 		<property name="team" value= "${foo.team}"></property>
+ 		
+ 	</bean>    
+    
+   	<!-- Assesment question -Random Fortunes DI -->
+    <!-- define the dependency -->
+    <bean id="myRandomFortuneService"
+ 		class="com.springLessons.springAssessmentDI.Fortunes">	 		
+ 	</bean>
+ 	
+ 	<bean id="myGolfCoach" class="com.springLessons.springAssessmentDI.GolfCoach">
+ 	<property name="randFortuneService" ref ="myRandomFortuneService"></property>
+ 	</bean>
+    
+ 	 	
+
+ 
+
+</beans>
+
+
+
+
+
